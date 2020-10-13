@@ -26,6 +26,7 @@ setup(
         'flask_cors',
         'gevent',
         'numpy',
-        'pillow'
+        'pillow',
+        'imageio'
     ] + tensorflow_packages
 )

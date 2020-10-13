@@ -24,7 +24,7 @@ def get_evaluation_context():
 def get_evaluation_context_getter():
     if K.backend() == 'tensorflow':
         import tensorflow as tf
-        return tf.get_default_graph().as_default
+        return tf.compat.v1.get_default_graph().as_default
 
     if K.backend() == 'theano':
         return contextmanager(lambda: (yield))
@@ -37,7 +37,7 @@ def get_input_config(model):
     return (
         model.get_input_shape_at(0)[2:4],
         model.get_input_shape_at(0)[1]
-    ) if K.image_dim_ordering() == 'th' else (
+    ) if K.image_data_format() == 'channels_first' else (
         #tf ordering
         model.get_input_shape_at(0)[1:3],
         model.get_input_shape_at(0)[3]
